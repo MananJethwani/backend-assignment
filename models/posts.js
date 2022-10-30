@@ -9,11 +9,11 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    comments: {
-        type: [Object],
-        default: []
-    }, 
     likedBy: {
+        type: [String],
+        default: []
+    },
+    comments: {
         type: [String],
         default: []
     }

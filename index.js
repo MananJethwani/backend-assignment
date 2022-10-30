@@ -5,23 +5,26 @@ const authRoutes = require("./routes/auth");
 const userInteractionRoutes = require("./routes/user-interaction");
 const postRoutes = require("./routes/post");
 const postInterationRoutes = require("./routes/postInteraction");
+const validateUser = require("./middleware/validateUser");
+const getAllPosts = require("./middleware/getAllPosts");
 
 dotenv.config()
 
-const PORT=process.env.PORT || 3000
+const PORT = process.env.PORT || 3000
 const app = express()
 
 var allowCrossDomain = function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-    res.header("Access-Control-Allow-Headers", "Content-Type");
-    next();
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
 };
 
 app.use(express.json());
 app.use(allowCrossDomain);
 app.use('/api/authenticate', authRoutes);
 app.use('/api/posts', postRoutes);
+app.use('/api/all_post', validateUser, getAllPosts);
 app.use('/api', userInteractionRoutes);
 app.use('/api', postInterationRoutes);
 
