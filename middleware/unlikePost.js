@@ -6,9 +6,9 @@ const unlikePost = async (req, res) => {
         const postId = req.params.id;
         const userId = req.user_id;
 
-        const post = await Post.findOne({_id: postId});
-        const user = await User.findOne({_id: userId});
-    
+        const post = await Post.findOne({ _id: postId });
+        const user = await User.findOne({ _id: userId });
+
         if (post.likedBy.includes(user) && user.liked_posts.includes(post)) {
             post.likedBy.remove(user);
             user.liked_posts.remove(post);

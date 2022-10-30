@@ -6,9 +6,9 @@ const unfollowUser = async (req, res) => {
             return res.status(400).send("can't unfollow yourself");
         }
 
-        const user = await User.findOne({_id: req.user_id});
-        const user_to_follow = await User.findOne({_id: req.params.id});
-    
+        const user = await User.findOne({ _id: req.user_id });
+        const user_to_follow = await User.findOne({ _id: req.params.id });
+
         if (user && user_to_follow) {
             if (!user.following.includes(req.params.id)) {
                 return res.status(200).send("User already unfollowed");

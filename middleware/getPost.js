@@ -8,11 +8,8 @@ const getPost = async (req, res) => {
         if (post) {
             const comments = await Comment.find({ _id: { $in: post.comments } });
             return res.status(200).send({
-                id: post._id,
-                title: post.title,
-                desc: post.desc,
-                Comments: comments,
-                likes: post.likedBy.length,
+                ...post,
+                comments,
                 created_at: post.createdAt
             });
         } else {
