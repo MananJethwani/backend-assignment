@@ -11,9 +11,13 @@ const deletePost = async (req, res) => {
                 user.liked_posts.remove(req.params.id);
                 await user.save();
             }
-            for (let i = 0; i < post.comments.length; i++) {
-                await Comment.deleteOne({ _id: post.comments[i] });
-            }
+
+            const user = await User.findOne({ _id: post.created_by });
+            user.posts.remove(post._id);
+            await user.save();
+
+            await Comment.deleteMany({ _id: { $in: post.comments } });
+
             await Post.deleteOne({ _id: req.params.id });
             return res.status(200).send("Post delted succesfully");
         } else {

@@ -16,6 +16,10 @@ const postSchema = new mongoose.Schema({
     comments: {
         type: [String],
         default: []
+    },
+    created_by: {
+        type: String,
+        rtequired: true,
     }
 }, {
     timestamps: true

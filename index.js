@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(allowCrossDomain);
 app.use('/api/authenticate', authRoutes);
 app.use('/api/posts', postRoutes);
-app.use('/api/all_post', validateUser, getAllPosts);
+app.use('/api/all_posts', validateUser, getAllPosts);
 app.use('/api', userInteractionRoutes);
 app.use('/api', postInterationRoutes);
 

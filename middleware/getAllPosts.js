@@ -13,7 +13,10 @@ const getAllPosts = async (req, res) => {
             const post = await Post.findOne({ _id: user.posts[i] });
             const comments = await Comment.find({ _id: { $in: post.comments } });
             postData.push({
-                ...post,
+                id: post._id,
+                title: post.title,
+                description: post.desc,
+                likes: post.likedBy.length,
                 comments: comments
             });
         }

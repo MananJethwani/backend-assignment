@@ -7,7 +7,7 @@ const addComment = require("../middleware/createComment");
 const router = new Router();
 
 router.post("/like/:id", validateUser, likePost);
-router.post("/like/:id", validateUser, unlikePost);
+router.post("/unlike/:id", validateUser, unlikePost);
 router.post("/comment/:id", validateUser, addComment);
 
 module.exports = router;

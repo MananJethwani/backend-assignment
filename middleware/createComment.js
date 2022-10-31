@@ -5,7 +5,7 @@ const createComment = async (req, res) => {
     try {
         const user_id = req.user_id;
         const post = await Post.findOne({ _id: req.params.id })
-        const comment = req.body.comment;
+        const comment = req.body.Comment;
 
         const postComment = new Comment({
             comment,
@@ -14,6 +14,7 @@ const createComment = async (req, res) => {
 
         await postComment.save();
         post.comments.push(postComment._id);
+        await post.save();
         return res.status(200).send(postComment._id);
 
     } catch (err) {

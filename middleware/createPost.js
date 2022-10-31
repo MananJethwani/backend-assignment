@@ -3,7 +3,13 @@ const User = require("../models/user");
 
 const createPost = async (req, res) => {
     try {
-        const { title, description } = req.body;
+        const { Title: title, Description: description } = req.body;
+
+        const oldPost = await Post.findOne({ title });
+        if (oldPost) {
+            return res.status(400).send("Post already exists");
+        }
+
         if (title && description) {
             const post = new Post({
                 title: title,
@@ -13,7 +19,7 @@ const createPost = async (req, res) => {
 
             await post.save();
 
-            const user = User.findOne({ _id: req.user_id });
+            const user = await User.findOne({ _id: req.user_id });
             user.posts.push(post._id);
             await user.save();
 
