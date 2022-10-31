@@ -1,0 +1,15 @@
+version: "2"
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - data-db:/data/db
+  reunion-backend-service:
+    build: ./
+    ports:
+      - "3000:3000"
+
+volumes:
+    data-db:

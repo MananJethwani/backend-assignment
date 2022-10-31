@@ -10,7 +10,7 @@ const userAuth = async (req, res) => {
     }
     const user = await User.findOne({ email });
     if (user && (await bcrypt.compare(password, user.password))) {
-      const token = jwt.sign({ user_id: user._id }, process.env.TOKEN_KEY);
+      const token = jwt.sign({ user_id: user._id }, process.env.TOKEN_KEY || 'reunion_api_token');
       return res.status(200).json({ user_id: user._id, user_email: user.email, user_token: token });
     } else {
       return res.status(401).send('Invalid Credentials');

@@ -29,8 +29,9 @@ app.use('/api', userInteractionRoutes);
 app.use('/api', postInterationRoutes);
 
 mongoose
-  .connect(process.env.MONGODB_URL)
+  .connect(`mongodb://mongo:27017`)
   .then(() => {
+    console.log("************************");
     console.log("connected to MongoDB");
     app.listen(PORT, () => console.log(`server is listening on port ${PORT}.`));
   })
