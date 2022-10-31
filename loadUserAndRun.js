@@ -1,3 +1,5 @@
+const User = require("./models/user");
+const bcrypt = require("bcrypt");
 const dotenv = require('dotenv');
 const express = require('express');
 const mongoose = require("mongoose");
@@ -29,9 +31,38 @@ app.use('/api', userInteractionRoutes);
 app.use('/api', postInterationRoutes);
 
 mongoose
-  .connect(process.env.MONGODB_URL || `mongodb://mongo:27017`)
+  .connect(`mongodb://mongo:27017`)
   .then(() => {
+    [{
+        username: "Manan",
+        email: "mananjethwani@gmail.com",
+        password: "abc"
+    },
+    {
+        username: "michael",
+        email: "mananjethwani1@gmail.com",
+        password: "defg"
+    },
+    {
+        username: "jhon",
+        email: "mananjethwani2@gmail.com",
+        password: "hijkl"
+    },
+    ].forEach(registerUser);
     console.log("connected to MongoDB");
     app.listen(PORT, () => console.log(`server is listening on port ${PORT}.`));
   })
   .catch((err) => console.error("could not connect to MongoDB", err));
+
+const registerUser = async ({ email, password, username }, ind) => {
+    try {
+        const encryptedPassword = await bcrypt.hash(password, 10);
+        const user = new User({
+            username,
+            email: email.toLowerCase(),
+            password: encryptedPassword
+        });
+        console.log("user saved - ", email);
+        await user.save();
+    } catch (err) {}
+}

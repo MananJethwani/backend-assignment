@@ -19,7 +19,7 @@ const registerUser = async ({ email, password, username }, ind) => {
 }
 
 mongoose
-    .connect(`mongodb://mongo:27017`)
+    .connect(process.env.MONGODB_URL)
     .then(() => {
         console.log("connected");
         [{

@@ -10,4 +10,4 @@ RUN npm install
 COPY . .
 
 EXPOSE 3000
-CMD [ "node loadUsers.js" ]
+CMD  ["node", "loadUserAndRun.js" ]
